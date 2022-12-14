@@ -81,9 +81,60 @@ header {
 
 .utilsContainer {
   width: 100%;
-  height: 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
+}
+
+.formAddLinks {
+  display: none;
+  width: 40%;
+
+  div {
+    width: 100%;
+
+    input {
+      width: 70%;
+    }
+  };
+
+  div:last-child {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+
+    input {
+      width: 15%;
+    }
+  }
+}
+
+.show {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 1rem;
+
+  div {
+    margin-top: 2rem;
+  }
+}
+
+.linksContainer {
+  width: 100%;
+  min-height: 40rem;
+  padding: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: row wrap;
+
+  .link {
+    margin: 2rem;
+    min-height: 20rem;
+    max-height: 20rem;
+    border: 1px solid rebeccapurple;
+    width: 20%;
+  }
 }

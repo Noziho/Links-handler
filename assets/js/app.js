@@ -1,7 +1,8 @@
 import '../styles/style.scss';
 
-let success = document.querySelector('.success');
-let error = document.querySelector('.error');
+const success = document.querySelector('.success');
+const error = document.querySelector('.error');
+const addLinksButton = document.querySelector('#addLinks');
 
 if (success) {
     setTimeout(() => {
@@ -22,3 +23,11 @@ if (error) {
         error.remove();
     })
 }
+
+addLinksButton.addEventListener('click', () => {
+    let formAddLinks = document.querySelector('.formAddLinks');
+
+    formAddLinks.classList.toggle('show');
+})
+
+

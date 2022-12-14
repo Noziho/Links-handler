@@ -1,16 +1,61 @@
+<?php
+    if (isset($data['user'])) {
+        $user = $data['user'];
+    }
+?>
+
 <div class="container">
     <?php
     if (isset($_SESSION['user'])) { ?>
         <div class="utilsContainer">
             <div class="addLinksContainer">
-                <button>Ajouter un lien</button>
+                <button id="addLinks">Ajouter un lien</button>
             </div>
+
+            <form class="formAddLinks" action="/?c=links&a=addLinks" method="post" enctype="multipart/form-data">
+                <div>
+                    <label for="linkTitle">Titre du lien: </label>
+                    <input type="text" name="linkTitle" id="linkTitle" minlength="4" max="20">
+                </div>
+
+                <div>
+                    <label for="link">Lien complet: </label>
+                    <input type="text" name="link" id="link" minlength="4" max="250">
+                </div>
+
+                <div>
+                    <label for="linkImg">Image du lien (miniature): </label>
+                    <input type="file" name="linkImg" id="linkImg">
+                </div>
+
+                <div>
+                    <input type="submit" name="submit" value="Ajouter">
+                </div>
+            </form>
 
             <div>
                 <a href="/?c=user&a=profil&id=<?= $_SESSION['user']->id ?>">Profil</a>
             </div>
-        </div> <?php
-    } else { ?>
+        </div>
+
+        <div class="linksContainer">
+            <?php
+            foreach ($user->ownLinksList as $link) {?>
+                <div class="link">
+                    <div class="imgLink">
+                        <img src="/assets/img/<?= $link->links_image ?>.png" alt="Image links">
+                    </div>
+                    
+                    <div>
+                        <a href="<?= $link->link_name ?>" target="_blank"><?= $link->link_title ?></a>
+                    </div>
+                </div>
+
+                <?php
+            }?>
+        </div><?php
+    }
+    else { ?>
         <p id="intro">Pour accéder au links handler veuillez vous inscrire puis vous connectez. </p>
         <div id="loginRegisterContainer">
             <div id="containerRegister">
