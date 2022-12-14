@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+* a {
+  color: #333333;
+  text-decoration: none;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background: #DCDCDC;
+  font-size: 1.6rem;
+  color: #333333;
+}
+
+header {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#loginRegisterContainer {
+  width: 70%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin-top: 10rem;
+
+  div {
+    padding: 2rem;
+    width: 40%;
+    background: darken(#FEFEFE, 5%);
+  }
+
+}
+
+#intro {
+  margin-top: 5rem;
+}
