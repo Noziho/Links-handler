@@ -1,6 +1,16 @@
 <div class="container">
     <?php
-    if (!isset($_SESSION['user'])) { ?>
+    if (isset($_SESSION['user'])) { ?>
+        <div class="utilsContainer">
+            <div class="addLinksContainer">
+                <button>Ajouter un lien</button>
+            </div>
+
+            <div>
+                <a href="/?c=user&a=profil&id=<?= $_SESSION['user']->id ?>">Profil</a>
+            </div>
+        </div> <?php
+    } else { ?>
         <p id="intro">Pour accéder au links handler veuillez vous inscrire puis vous connectez. </p>
         <div id="loginRegisterContainer">
             <div id="containerRegister">
@@ -40,9 +50,6 @@
                 </form>
             </div>
         </div><?php
-    }
-    else {?>
-        <h1>EEEEEEEEEEE LOGED</h1> <?php
     }
     ?>
 
