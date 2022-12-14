@@ -1,3 +1,15 @@
+<?php
+if (isset($_SESSION['error'])) {?>
+    <div class="error"><?= $_SESSION['error'] ?></div><?php
+    unset($_SESSION['error']);
+}
+if (isset($_SESSION['success'])) {?>
+    <div class="success"><?= $_SESSION['success'] ?></div><?php
+    unset($_SESSION['success']);
+}
+
+?>
+
 <!doctype html>
 <html lang="fr">
 <head>
@@ -10,6 +22,11 @@
 <body>
 <header>
     <h1><a href="/?c=home">Links handler</a></h1>
+    <?php
+        if (isset($_SESSION['user'])) {?>
+            <a href="/?c=user&a=logout">Déconnexion</a><?php
+    }
+    ?>
 </header>
 
 <main><?= $html ?></main>

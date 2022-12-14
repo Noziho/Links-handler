@@ -17,7 +17,6 @@ class UserController extends AbstractController
      */
     public static function register()
     {
-        self::render('user/register');
         if (isset($_POST['submit'])) {
             if (self::formIsset('email', 'password', 'password_repeat')) {
 
@@ -56,14 +55,13 @@ class UserController extends AbstractController
                 }
 
                 $_SESSION['success'] = "Votre inscription à été validée.";
-                header("Location: /?c=user&a=login");
+                header("Location: /?c=home");
             }
         }
     }
 
     public static function login()
     {
-        self::render('user/login');
         if (isset($_POST['submit'])) {
             if (self::formIsset('email', 'password')) {
                 $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
@@ -78,11 +76,11 @@ class UserController extends AbstractController
                         exit();
                     } else {
                         $_SESSION['error'] .= "/Mot de passe incorrect/";
-                        header("Location: /?c=user&a=login");
+                        header("Location: /?c=user&a=home");
                     }
                 } else {
                     $_SESSION['error'] .= "/Le compte n'existe pas/";
-                    header("Location: /?c=user&a=login");
+                    header("Location: /?c=user&a=home");
                 }
             }
         }
@@ -91,7 +89,12 @@ class UserController extends AbstractController
     public static function logOut ()
     {
         unset($_SESSION['user']);
-        $_SESSION['success'] .= "/Déconnecté avec succès/";
+        if (!isset($_SESSION['success'])) {
+            $_SESSION['success'] = "/Déconnecté avec succès/";
+        }
+        else {
+            $_SESSION['success'] .= "/Déconnecté avec succès/";
+        }
         header("Location: /?c=home");
     }
 
