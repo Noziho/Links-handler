@@ -42,8 +42,8 @@
             <?php
             foreach ($user->ownLinksList as $link) {?>
                 <div class="link">
-                    <div class="imgLink">
-                        <img src="/assets/img/<?= $link->links_image ?>.png" alt="Image links">
+                    <div class="imgLinkContainer">
+                        <img class="imgLink" src="/img/<?= $link->link_image_name ?>.<?= $link->link_image_extension ?>" alt="Image links">
                     </div>
                     
                     <div>

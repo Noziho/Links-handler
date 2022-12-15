@@ -35,24 +35,18 @@ class LinksController extends AbstractController
         if (isset($_POST['submit'])) {
             if (self::formIsset('linkTitle', 'link')) {
                 if (isset($_FILES['linkImg'])) {
-                    $tmp_name = $_FILES['linkImg']['tmp_name'];
-                    $img_name = self::getRandomName($_FILES['linkImg']['name']);
-                    if (!is_dir('../assets/img/')) {
-                        mkdir('../assets/img/', '0755');
-                    }
-                    if (self::checkMimeType($tmp_name)) {
-                        move_uploaded_file($tmp_name, '../assets/img/' . $img_name);
-                        $sanitize_img_name = preg_replace('/\\.[^.\\s]{2,4}$/', '', $img_name);
 
-                        $linkTitle = filter_var($_POST['linkTitle'], FILTER_SANITIZE_STRING);
-                        $link = filter_var($_POST['link'], FILTER_SANITIZE_STRING);
+                    $links = R::dispense('links');
+                    $user = R::findOne('user', 'id=?', [$_SESSION['user']->id]);
+                    $linkTitle = filter_var($_POST['linkTitle'], FILTER_SANITIZE_STRING);
+                    $link = filter_var($_POST['link'], FILTER_SANITIZE_STRING);
 
-                        $links = R::dispense('links');
-                        $user = R::findOne('user', 'id=?', [$_SESSION['user']->id]);
+                    if ($_FILES['linkImg']["name"] === "") {
 
-                        $links->link_name = $link;
+                        $links->link = $link;
                         $links->link_title = $linkTitle;
-                        $links->link_image = $sanitize_img_name;
+                        $links->link_image_name = "defaultImage";
+                        $links->link_image_extension = "jpg";
 
                         $user->ownLinksList[] = $links;
 
@@ -60,18 +54,40 @@ class LinksController extends AbstractController
 
                         $_SESSION['success'] = "Ajout validé.";
                         header("Location: /?c=home");
+                        exit();
+
                     }
                     else {
-                        $_SESSION['error'] = "Le type de fichier n'est pas valide.";
-                        header("Location: /?c=home");
-                        exit();
-                    }
-                }
-                else {
-                    $_SESSION['error'] = "Image manquante.";
-                    header("Location: /?c=home");
-                    exit();
+                        $tmp_name = $_FILES['linkImg']['tmp_name'];
+                        $img_name = self::getRandomName($_FILES['linkImg']['name']);
+                        if (!is_dir('img/')) {
+                            mkdir('img/', '0755');
+                        }
 
+                        if (self::checkMimeType($tmp_name)) {
+                            move_uploaded_file($tmp_name, 'img/' . $img_name);
+                            $sanitize_img_name = preg_replace('/\\.[^.\\s]{2,4}$/', '', $img_name);
+
+                            $infos = pathinfo($_FILES['linkImg']['name']);
+
+                            $links->link = $link;
+                            $links->link_title = $linkTitle;
+                            $links->link_image_name = $sanitize_img_name;
+                            $links->link_image_extension = $infos['extension'];
+
+                            $user->ownLinksList[] = $links;
+
+                            R::store($user);
+
+                            $_SESSION['success'] = "Ajout validé.";
+                            header("Location: /?c=home");
+                        }
+                        else {
+                            $_SESSION['error'] = "Le type de fichier n'est pas valide.";
+                            header("Location: /?c=home");
+                            exit();
+                        }
+                    }
                 }
             }
             else {
