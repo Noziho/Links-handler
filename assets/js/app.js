@@ -26,7 +26,6 @@ if (error) {
 
 addLinksButton.addEventListener('click', () => {
     let formAddLinks = document.querySelector('.formAddLinks');
-
     formAddLinks.classList.toggle('show');
 })
 

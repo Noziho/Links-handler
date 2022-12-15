@@ -9,7 +9,7 @@
     if (isset($_SESSION['user'])) { ?>
         <div class="utilsContainer">
             <div class="addLinksContainer">
-                <button id="addLinks">Ajouter un lien</button>
+                <button id="addLinks">+</button><span>Ajoutez un lien</span>
             </div>
 
             <form class="formAddLinks" action="/?c=links&a=addLinks" method="post" enctype="multipart/form-data">
@@ -40,14 +40,14 @@
 
         <div class="linksContainer">
             <?php
-            foreach ($user->ownLinksList as $link) {?>
+            foreach (array_reverse($user->ownLinksList) as $link) {?>
                 <div class="link">
                     <div class="imgLinkContainer">
                         <img class="imgLink" src="/img/<?= $link->link_image_name ?>.<?= $link->link_image_extension ?>" alt="Image links">
                     </div>
                     
                     <div>
-                        <a href="<?= $link->link_name ?>" target="_blank"><?= $link->link_title ?></a>
+                        <a href="<?= $link->link ?>" target="_blank"><?= $link->link_title ?></a>
                     </div>
                 </div>
 

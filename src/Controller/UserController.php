@@ -24,18 +24,18 @@ class UserController extends AbstractController
                 $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
                 $password_repeat = filter_var($_POST['password_repeat'], FILTER_SANITIZE_STRING);
 
-                self::checkRange($email, 6, 150, '/?c=user&a=register', '/La longueur de l\'email doit-être comprise entre 6 et 150 caractères');
-                self::checkRange($password, 8, 40,'/?c=user&a=register', '/La longueur du mot de passe doit-être compris entre 8 et 40 caractères' );
+                self::checkRange($email, 6, 150, '/?c=home', '/La longueur de l\'email doit-être comprise entre 6 et 150 caractères');
+                self::checkRange($password, 8, 40,'/?c=home', '/La longueur du mot de passe doit-être compris entre 8 et 40 caractères' );
 
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $_SESSION['error'] = "/Le mail n'est pas au format exemple@exemple.com/";
-                    header("Location: /?c=user&a=register");
+                    header("Location: /?c=home");
                     exit();
                 }
 
                 if ($password !== $password_repeat) {
                     $_SESSION['error'] = "/Les mots de passes ne corresponde pas/";
-                    header("Location: /?c=user&a=register");
+                    header("Location: /?c=home");
                     exit();
                 }
 
@@ -110,15 +110,24 @@ class UserController extends AbstractController
             header("Location: /?c=home");
         }
 
-        if ($_SESSION['user']->id === $user->id) {
-            self::render('user/profil', [
-                "user" => $user,
-            ]);
+        if (isset($_SESSION['user'])) {
+            if ($_SESSION['user']->id === $user->id) {
+                self::render('user/profil', [
+                    "user" => $user,
+                ]);
+            }
+            else {
+                $_SESSION['error'] = "Accès refuser.";
+                header("Location: /?c=home");
+                exit();
+            }
         }
         else {
-            $_SESSION['error'] = "Accès refuser.";
             header("Location: /?c=home");
+            exit();
         }
+
+
 
     }
 
