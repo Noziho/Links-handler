@@ -85,6 +85,7 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
+  flex-flow: row wrap;
 
   div {
     span {
@@ -112,7 +113,8 @@ header {
     justify-content: flex-end;
 
     input {
-      width: 15%;
+      width: 40%;
+      padding: 1rem;
     }
   }
 }
@@ -179,4 +181,57 @@ header {
   font-size: 1.8rem;
   text-align: center;
   cursor: pointer;
+}
+
+@media screen and (max-width: 1300px){
+  .linksContainer {
+    padding: 2rem;
+    .link {
+      width: 40%;
+    }
+  }
+
+  .formAddLinks {
+    div:last-child {
+      input {
+        width: 80%;
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 900px) {
+  .utilsContainer {
+    div, form {
+      width: 100%;
+    }
+  }
+
+  #containerRegister, #containerLogin {
+    div {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 750px) {
+  #loginRegisterContainer {
+    width: 100%;
+
+    div {
+      width: 100%;
+      margin-top: 2rem;
+    }
+  }
+
+}
+
+@media screen and (max-width: 600px){
+  .linksContainer {
+    padding: 2rem;
+    .link {
+      width: 100%;
+    }
+  }
 }
