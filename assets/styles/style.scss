@@ -149,9 +149,10 @@ header {
       border: 3px solid #282872;
       padding: 0.5rem;
       display: flex;
+      justify-content: space-between;
       align-items: center;
       a {
-        width: 100%;
+        width: 50%;
         height: 100%;
       }
     }

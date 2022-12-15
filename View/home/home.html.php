@@ -15,12 +15,12 @@
             <form class="formAddLinks" action="/?c=links&a=addLinks" method="post" enctype="multipart/form-data">
                 <div>
                     <label for="linkTitle">Titre du lien: </label>
-                    <input type="text" name="linkTitle" id="linkTitle" minlength="4" max="20">
+                    <input type="text" name="linkTitle" id="linkTitle" minlength="4" maxlength="20">
                 </div>
 
                 <div>
                     <label for="link">Lien complet: </label>
-                    <input type="text" name="link" id="link" minlength="4" max="250">
+                    <input type="text" name="link" id="link" minlength="4" maxlength="250">
                 </div>
 
                 <div>
@@ -48,6 +48,9 @@
                     
                     <div>
                         <a href="<?= $link->link ?>" target="_blank"><?= $link->link_title ?></a>
+                        <form action="/?c=links&a=deleteLink&id=<?= $link->id ?>" method="post">
+                            <input type="submit" name="submit" value="🗑️">
+                        </form>
                     </div>
                 </div>
 

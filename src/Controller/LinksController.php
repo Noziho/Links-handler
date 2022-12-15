@@ -41,6 +41,9 @@ class LinksController extends AbstractController
                     $linkTitle = filter_var($_POST['linkTitle'], FILTER_SANITIZE_STRING);
                     $link = filter_var($_POST['link'], FILTER_SANITIZE_STRING);
 
+                    self::checkRange($linkTitle, 4,20, '/?c=home', 'La longueur du titre doit être comprise entre 4 et 20 caractères');
+                    self::checkRange($link, 4,250, '/?c=home', 'La longueur du lien doit être comprise entre 4 et 250 caractères');
+
                     if ($_FILES['linkImg']["name"] === "") {
 
                         $links->link = $link;
@@ -96,5 +99,30 @@ class LinksController extends AbstractController
                 exit();
             }
         }
+    }
+
+    public static function deleteLink (int $id = null)
+    {
+        if (null === $id || !isset($_SESSION['user'])) {
+            header("Location: /?c=home");
+            exit();
+        }
+
+        $link = R::findOne('links', 'id=?', [$id]);
+
+        if (!$link) {
+            header("Location: /?c=home");
+            exit();
+        }
+
+        if ($link->user_id === $_SESSION['user']->id) {
+            R::trash($link);
+            $_SESSION['success'] = "Lien supprimé avec succès";
+            header("Location: /?c=home");
+        }
+        else {
+            header("Location: /?c=home");
+        }
+
     }
 }
